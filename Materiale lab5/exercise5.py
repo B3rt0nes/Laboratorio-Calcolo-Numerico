@@ -1,29 +1,29 @@
-# Recap function
+# # Recap function
 
-def upper_text(text):  
-    return text.upper()  
+# def upper_text(text):  
+#     return text.upper()  
 
-upper_text2 = lambda text: text.upper()  
+# upper_text2 = lambda text: text.upper()  
   
-stringa = "Hello world" 
+# stringa = "Hello world" 
 
-# Function call
-print('upper_text: ', upper_text(stringa)) 
-print('upper_text2: ', upper_text2(stringa))
+# # Function call
+# print('upper_text: ', upper_text(stringa)) 
+# print('upper_text2: ', upper_text2(stringa))
       
-# storing the function in a variable  
-def hello(func):  
-    greeting = func("Greetings!")  
-    print(greeting) 
+# # storing the function in a variable  
+# def hello(func):  
+#     greeting = func("Greetings!")  
+#     print(greeting) 
 
-hello(upper_text2)      
+# hello(upper_text2)      
 
-def hello2(func, text = "Hello world!"):  
-    greeting = func(text)  
-    print(greeting)
+# def hello2(func, text = "Hello world!"):  
+#     greeting = func(text)  
+#     print(greeting)
 
-hello2(upper_text2, stringa)
-hello2(upper_text2) 
+# hello2(upper_text2, stringa)
+# hello2(upper_text2) 
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -35,16 +35,16 @@ def succ_app(f, g, tolf, tolx, maxit, xTrue, x0=0):
   err=np.zeros(maxit+1, dtype=np.float64)
   err[0]=tolx+1
   vecErrore=np.zeros(maxit+1, dtype=np.float64)
-  vecErrore[0] = ...
+  vecErrore[0] = np.abs(xTrue - x0)
   x=x0
 
-  while (...): # scarto assoluto tra iterati
-    x_new= ...
-    err[i+1]= ...
-    vecErrore[i+1]= ...
+  while (i<maxit or (np.abs(f(x))>tolf) or err[i]>tolx): # scarto assoluto tra iterati
+    x_new= g(x)
+    err[i+1]= np.abs(x_new - x)
+    vecErrore[i+1]= np.abs(xTrue - x_new)
     i=i+1
     x=x_new
-  err=err[0:i]      
+  err=err[0:i]
   vecErrore = vecErrore[0:i]
   return (x, i, err, vecErrore) 
 
