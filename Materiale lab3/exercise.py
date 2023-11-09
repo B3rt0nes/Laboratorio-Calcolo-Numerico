@@ -19,7 +19,7 @@ plt.imshow(A, cmap='gray')
 plt.show()
 
 
-U, s, Vh = ...
+U, s, Vh = scipy.linalg.svd(A)
 
 print('Shape of U:', U.shape)
 print('Shape of s:', s.shape)
@@ -33,10 +33,10 @@ for i in range(p_max):
   ui = U[:, i]
   vi = Vh[i, :]
 
-  A_p = ...
+  A_p = A_p + np.outer(ui, vi)*s[i]
 
 err_rel = ...
-c = ...
+c = 1/(i+1)
 
 print('\n')
 print('L\'errore relativo della ricostruzione di A è', err_rel)
