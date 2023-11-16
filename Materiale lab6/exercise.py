@@ -18,8 +18,7 @@ def next_step(x,grad): # backtracking procedure for the choice of the steplength
     return alpha
 
 
-# funzione che implementa il metodo del gradiente
-def minimize(f,grad_f,x0,step,maxit,tol,xTrue,fixed=True): 
+def minimize(f,grad_f,x0,step,maxit,tol,xTrue,fixed=True): # funzione che implementa il metodo del gradiente
   #declare x_k and gradient_k vectors
   # x_list only for logging
   x_list=np.zeros((2,maxit+1))
@@ -35,33 +34,35 @@ def minimize(f,grad_f,x0,step,maxit,tol,xTrue,fixed=True):
   
   k=0
 
-  function_eval_list[k] = f(...)
-  error_list[k]=np.linalg.norm(...)
-  norm_grad_list[k]=np.linalg.norm(grad_f(...))
+  function_eval_list[k] = f(x0)
+  error_list[k]=np.linalg.norm(x_last - xTrue)
+  norm_grad_list[k]=np.linalg.norm(grad_f(x0))
 
-  while (np.linalg.norm(grad_f(x_last))>tol and k < maxit ):
+  while (np.linalg.norm(grad_f(x_last)) > tol and k < maxit ):
     k=k+1
-    grad = grad_f(...)#direction is given by gradient of the last iteration
+    
+    #direction is given by gradient of the last iteration
+    grad = grad_f(x_last)
     
     
     if fixed:
         # Fixed step
-        step = ...
+        step = step
     else:
         # backtracking step
-        step = ...
+        step = next_step(x_last, grad)
     
-    if(step==-1):
+    if(step == -1):
       print('non convergente')
       return (k) #no convergence
 
-    x_last=x_last-...
+    x_last = x_last - step*grad
     
-    x_list[:,k] = ...
+    x_list[:,k] = x_last
 
-    function_eval_list[k]=f(...)
-    error_list[k]=np.linalg.norm(...)
-    norm_grad_list[k]=np.linalg.norm(grad_f(...))
+    function_eval_list[k]=f(x_last)
+    error_list[k]=np.linalg.norm(x_last - xTrue)
+    norm_grad_list[k]=np.linalg.norm(grad_f(x_last))
 
   function_eval_list = function_eval_list[:k+1]
   error_list = error_list[:k+1]
