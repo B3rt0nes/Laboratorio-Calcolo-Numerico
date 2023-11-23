@@ -77,27 +77,27 @@ def minimize(f,grad_f,x0,step,maxit,tol,xTrue,fixed=True): # funzione che implem
 # Es 1.2
 def f(vec):
     x, y = vec
-    fout = ...
+    fout = 3*(x-2)**2 + (y-1)**2
     return fout
 
 def grad_f(vec):
     x, y = vec
-    dfdx = ...
-    dfdy = ...
-    return np.array([dfdx,dfdy])
+    dfdx = 6 * (x-2)
+    dfdy = 2 * (y-1)
+    return np.array([dfdx, dfdy]) # grad di f
 
-x = np.linspace(...)
-y = np.linspace(...)
+x = np.linspace(-1.5, 3.5)
+y = np.linspace(-1, 5)
 
 X, Y = np.meshgrid(x, y)
 vec = np.array([X,Y])
-Z=f(vec)
+Z = f(vec)
 
 fig = plt.figure(figsize=(15, 8))
 
 ax = plt.axes(projection='3d')
 ax.set_title('$f(x)=(x-1)^2 + (y-2)^2$')
-#ax.view_init(elev=50., azim=30)
+ax.view_init(elev=50., azim=30) #elev altezza rispetto y, azim come giro rispetto z (val di angoli tra 0-180)
 s = ax.plot_surface(X, Y, Z, cmap='viridis')
 fig.colorbar(s)
 plt.show()
@@ -111,12 +111,12 @@ fig.colorbar(contours)
 step = 0.002
 maxitS=1000
 tol=1.e-5
-x0 = np.array(...)
-xTrue = np.array(...)
-(x_last,norm_grad_listf, function_eval_listf, error_listf, xlist, k)= minimize(f,grad_f,x0,step,maxitS,tol,xTrue,fixed=True)
-plt.plot(...,'*-')
+x0 = np.array([3,5])  # punto iniziale
+xTrue = np.array([2,1]) # punto sol. esatta
+(x_last,norm_grad_listf, function_eval_listf, error_listf, xlist, k)= minimize(f,grad_f, x0, step, maxitS, tol, xTrue, fixed = True)
+plt.plot(xlist[0,:k], xlist[1,:k], '*-')
 (x_last,norm_grad_list, function_eval_list, error_list, xlist, k)= minimize(f,grad_f,x0,step,maxitS,tol,xTrue,fixed=False)
-plt.plot(...,'*-')
+plt.plot(xlist[0,:k], xlist[1,:k], '*-')
 plt.legend(['fixed', 'backtracking'])
 
 plt.show()
